@@ -26,67 +26,347 @@ Recipe made Easy! - Server Repo
 &nbsp;
 </div>
 
-## Table of Contents
+# 🍽️ QuikDine — Server
 
-- [Table of Contents](#table-of-contents)
-- [Introduction](#introduction)
-- [Key Features](#key-features)
-- [Installation](#installation)
-- [Technologies Used](#technologies-used)
-- [Eggroll Team Members](#eggroll-team-members)
-- [Developer Notes](#developer-notes)
-- [Credits](#credits)
+**Recipe discovery made easy.**
 
-## Introduction
+QuikDine helps you decide what to eat using the ingredients you already have.
 
-Our mobile app allows you to scan items in your pantry and suggest recipes based on the ingredients scanned. Based on the suggestions, you can also vote with your family and friends what you all want for dinner!
+Scan items in your pantry, discover recipes based on those ingredients, save your favorites, and invite family or friends to vote on what's for dinner!
 
-This project is divided into 3 parts: mobile, server, and website. This repo, server, has the code of our server app. The server repo is the one that contacts Spoonacular API. The website repo allows people to vote for people's favorite recipe.
+This repository contains the **server component** of the QuikDine application.
 
-We hope that you have fun and enjoy our app!
+---
 
-## Key Features
+## 📑 Table of Contents
 
-    + Item Quikshot - Add items on your pantry through your camera or text.
-    + Recipe Finder - suggest recipes based on the items on your pantry.
-    + Recipe Selector - Vote for the best recipe for your next meal. The app can add more voting participants.
-    + Data Storage - Create an account and store your favorite recipes.
-    + Mobile Cross Platform - Works with Android and iOS.
+- [About QuikDine](#-about-quikdine)
+- [How It Works](#-how-it-works)
+- [Key Features](#-key-features)
+- [Project Architecture](#️-project-architecture)
+- [Server Responsibilities](#️-server-responsibilities)
+- [Technologies Used](#️-technologies-used)
+- [Installation](#-installation)
+- [Project Repositories](#-project-repositories)
+- [Team](#-team)
+- [Development Notes](#-development-notes)
+- [Credits](#-credits)
 
-## Installation
+---
 
-1. Install Expo CLI - https://expo.dev
-2. Git clone https://github.com/jaredhud/QuikDine-mobile.git
-3. Git clone https://github.com/jaredhud/Quikdine-server.git
-4. Git clone https://github.com/Kshitija118/QuikDineWebPage.git
-5. npm install all the repos above
-6. npm run start all the repos above
+## 📖 About QuikDine
 
-## Technologies Used
+Choosing what to cook can be difficult — especially when you don't know what meals you can make with the ingredients already sitting in your kitchen.
 
-    + Core: React Native - React
-    + API: Spoonacular Google Vision API
-    + SendGrid Node.js Javascript HTML CSS Javascript Firebase Express.js Expo Go
-    + Collaboration: Discord Github Zoom Trello Basecamp Figma
+QuikDine makes that decision easier.
 
-## Eggroll Team Members
+The application allows users to scan or enter ingredients from their pantry and receive recipe suggestions based on what they have available.
 
-- Kshitija Shirsathe - [GitHub](https://github.com/Kshitija118) - [LinkedIn](https://www.linkedin.com/in/kshitija-shirsathe-095a2197/)
-- Romell Bermundo - [GitHub](https://github.com/steakncheese) - [LinkedIn](https://www.linkedin.com/in/romellbermundo/)
-- Jared Huddleston - [GitHub](https://github.com/jaredhud) - [LinkedIn](https://www.linkedin.com/in/jared-huddleston-715101219/)
-- Chris Desmarais - [LinkedIn](https://www.linkedin.com/in/chris-desmarais-543207/) - Scrum Master
+Found several good options?
 
-## Developer Notes
+Invite family or friends and let everyone vote on what to make for dinner.
 
-- Context is used to transfer data from page to page
-- Firebase is used to store data
-- SendGrid is used for handling email functionality
-- Navigation is handled 2 ways: Screen and Tab navigation
-- \_RecipeNav and similar folders handles the Tab Navigation part
-- Modal is used to create pop-ups (useful for creating help notes)
-- When creating page layout, use percentages to divide sections. ie. 10% 10% 30%
+---
 
-## Credits
+## 🔄 How It Works
 
-+ [Node.js](https://nodejs.org/)
-+ Base logo vector made by [Freepik](https://www.freepik.com/) from [Flaticon](www.flaticon.com).
+```text
+SCAN OR ENTER
+PANTRY ITEMS
+      │
+      ▼
+ IDENTIFY INGREDIENTS
+      │
+      ▼
+  QUIKDINE SERVER
+      │
+      ▼
+ SPOONACULAR API
+      │
+      ▼
+ RECIPE SUGGESTIONS
+      │
+      ▼
+ SAVE FAVORITES
+      │
+      ▼
+ SHARE & VOTE
+      │
+      ▼
+WHAT'S FOR DINNER?
+```
+
+QuikDine connects ingredient recognition, recipe discovery, saved recipes, and group voting into one workflow.
+
+---
+
+## ✨ Key Features
+
+### 📸 Item QuikShot
+
+Add pantry items using your camera or by entering them manually.
+
+### 🔎 Recipe Finder
+
+Find recipe suggestions based on ingredients available in your pantry.
+
+### 🗳️ Recipe Selector
+
+Share recipe choices with family or friends and vote on which meal to make.
+
+Additional participants can be added to the voting process.
+
+### ❤️ Recipe Storage
+
+Create an account and save favorite recipes for later.
+
+### 📱 Cross-Platform Mobile App
+
+The QuikDine mobile application is designed to work across both Android and iOS.
+
+---
+
+## 🏗️ Project Architecture
+
+QuikDine is divided into three main applications:
+
+```text
+                 QUIKDINE
+                     │
+       ┌─────────────┼─────────────┐
+       │             │             │
+       ▼             ▼             ▼
+  MOBILE APP       SERVER        WEBSITE
+React Native     Node.js /       React
+    Expo          Express
+       │             │             │
+       │             ▼             │
+       │      SPOONACULAR API      │
+       │             │             │
+       │          FIREBASE         │
+       │             │             │
+       └─────────────┼─────────────┘
+                     │
+                     ▼
+              QUIKDINE DATA
+```
+
+### 📱 Mobile
+
+The mobile application provides the primary QuikDine experience, including pantry management, recipe discovery, and mobile navigation.
+
+### ⚙️ Server
+
+The server handles application logic and communication with external services such as the Spoonacular API.
+
+### 🌐 Website
+
+The web application supports recipe voting so multiple people can participate in choosing a meal.
+
+---
+
+## ⚙️ Server Responsibilities
+
+This repository contains the **QuikDine server application**.
+
+The server acts as the bridge between QuikDine and external services required by the application.
+
+Its responsibilities include:
+
+- communicating with the Spoonacular API
+- retrieving recipe information
+- supporting recipe searches
+- processing application requests
+- supporting stored recipe data
+- connecting application functionality with backend services
+
+---
+
+## 🛠️ Technologies Used
+
+### Mobile & Frontend
+
+- React Native
+- React
+- JavaScript
+- HTML
+- CSS
+- Expo
+- Expo Go
+
+### Backend
+
+- Node.js
+- Express.js
+- JavaScript
+
+### Data & Services
+
+- Firebase
+- Spoonacular API
+- Google Vision API
+- SendGrid
+
+### Design & Collaboration
+
+- Git
+- GitHub
+- Figma
+- Trello
+- Basecamp
+- Discord
+- Zoom
+
+---
+
+## 🚀 Installation
+
+QuikDine consists of multiple repositories that work together.
+
+### Requirements
+
+Make sure you have installed:
+
+- Node.js
+- npm
+- Git
+- Expo CLI
+
+### 1. Clone the mobile application
+
+```bash
+git clone https://github.com/jaredhud/QuikDine-mobile.git
+```
+
+### 2. Clone the server
+
+```bash
+git clone https://github.com/jaredhud/Quikdine-server.git
+```
+
+### 3. Clone the website
+
+```bash
+git clone https://github.com/Kshitija118/QuikDineWebPage.git
+```
+
+### 4. Install dependencies
+
+Run the following inside each project directory:
+
+```bash
+npm install
+```
+
+### 5. Start the applications
+
+Run the appropriate start command inside each repository:
+
+```bash
+npm run start
+```
+
+Additional configuration may be required for Firebase and external API services.
+
+---
+
+## 📦 Project Repositories
+
+QuikDine is separated into three repositories:
+
+### 📱 Mobile Application
+
+```text
+QuikDine-mobile
+```
+
+The React Native mobile application used for the primary user experience.
+
+### ⚙️ Server
+
+```text
+Quikdine-server
+```
+
+The backend application responsible for server functionality and external API communication.
+
+### 🌐 Website
+
+```text
+QuikDineWebPage
+```
+
+The web application used to support recipe voting and shared meal selection.
+
+---
+
+## 👥 Team
+
+QuikDine is developed by the **Eggroll Team**:
+
+- **Kshitija Shirsathe**
+- **Romell Bermundo**
+- **Jared Huddleston**
+- **Chris Desmarais** — Scrum Master
+
+The team collaborates across application development, UI/UX, backend services, API integration, testing, and project coordination.
+
+---
+
+## 📝 Development Notes
+
+### Data
+
+Firebase is used to store application data.
+
+### Email
+
+SendGrid handles email functionality.
+
+### Navigation
+
+The mobile application uses both screen navigation and tab navigation.
+
+Folders such as `_RecipeNav` handle tab-navigation functionality.
+
+### Modals
+
+Modals are used to create pop-ups and contextual information such as help notes.
+
+### Layout
+
+Percentage-based sizing can be used when dividing page sections to support responsive layouts.
+
+### State & Data Transfer
+
+React Context is used to transfer application data between different parts of the application.
+
+---
+
+## 🎯 Project Goal
+
+Our goal with QuikDine is simple:
+
+> **Make deciding what's for dinner easier.**
+
+By combining pantry scanning, recipe discovery, saved recipes, and group voting, QuikDine turns ingredients already available at home into practical meal ideas.
+
+At the same time, the project brings together mobile development, backend development, APIs, cloud data storage, computer vision, and collaborative software development into one integrated application.
+
+---
+
+## 🙏 Credits
+
+QuikDine uses several open-source technologies and third-party services, including:
+
+- Node.js
+- React
+- React Native
+- Express
+- Firebase
+- Expo
+- Spoonacular
+- Google Vision API
+- SendGrid
+
+Base logo vector created by **Freepik** from **Flaticon**.
